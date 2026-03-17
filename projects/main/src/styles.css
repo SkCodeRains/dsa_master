@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap');
+@import '@angular/material/prebuilt-themes/azure-blue.css';
+@import 'tailwindcss';
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Custom scrollbar for dark sidebar */
+  .dark-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .dark-scrollbar::-webkit-scrollbar-track {
+    background: #1f2937;
+  }
+
+  .dark-scrollbar::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 3px;
+  }
+
+  .dark-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+  }
+}

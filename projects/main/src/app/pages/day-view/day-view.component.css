@@ -1,0 +1,53 @@
+/* ── Difficulty badges ── */
+.difficulty-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.badge-easy {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badge-medium {
+  background: rgba(249, 115, 22, 0.15);
+  color: #fb923c;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.badge-hard {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* ── Problem panel overrides ── */
+.problem-panel .mat-expansion-panel-header {
+  background: transparent !important;
+}
+
+.problem-panel.mat-expanded .mat-expansion-panel-header {
+  background: rgba(99, 102, 241, 0.06) !important;
+}
+
+/* ── Concept tag tooltip: override Angular Material default style ── */
+::ng-deep .concept-tag-tooltip {
+  max-width: 280px;
+  white-space: pre-wrap;
+  background: #0f2a1a !important;
+  border: 1px solid #16a34a !important;
+  border-radius: 0.5rem !important;
+  padding: 0.625rem 0.875rem !important;
+  color: #bbf7d0 !important;
+  font-size: 0.8rem !important;
+  line-height: 1.5 !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+}

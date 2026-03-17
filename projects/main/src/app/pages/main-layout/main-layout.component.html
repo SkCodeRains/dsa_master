@@ -1,0 +1,24 @@
+<mat-sidenav-container class="h-screen w-full bg-slate-950 text-slate-300">
+  <!-- Sidebar -->
+  <mat-sidenav mode="side" [opened]="isSidebarOpened()"
+    class=" w-12/12 border-radius-0 border-slate-800 bg-slate-900 bg-transparent transition-all duration-300 ease-in-out">
+    <app-sidebar (toggleSidebar)="toggleSidebar()" class="bg-transparent"></app-sidebar>
+  </mat-sidenav>
+
+  <!-- Main Content Area -->
+  <mat-sidenav-content class="relative flex flex-col min-w-0 bg-slate-950 overflow-hidden">
+    <!-- Sidebar Open Button (Floating) - Only shown when sidebar is closed -->
+    @if (!isSidebarOpened()) {
+    <button (click)="toggleSidebar()"
+      class="fixed top-6 left-6 z-50 flex h-10 w-10 items-center justify-center rounded-xl bg-slate-800/80 text-indigo-400 border border-slate-700 backdrop-blur-md transition-all hover:bg-slate-700 hover:text-indigo-300 active:scale-95 shadow-lg shadow-black/20"
+      aria-label="Open sidebar">
+      <mat-icon>menu</mat-icon>
+    </button>
+    }
+
+    <!-- Scrollable Content Area for Routable Pages -->
+    <div class="flex-1 overflow-y-auto">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

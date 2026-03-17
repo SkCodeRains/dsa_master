@@ -1,0 +1,185 @@
+<header class="bg-white border-b border-gray-200 px-8 py-6 shadow-sm z-10">
+  <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-900">Day 35: Queues</h2>
+      <p class="text-gray-500 mt-1">Focusing on standard operations, sliding window techniques, and circular buffers.</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <button class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm transition-all">
+        <mat-icon class="mr-2">add</mat-icon>
+        Add New Problem
+      </button>
+    </div>
+  </div>
+</header>
+<div class="space-y-8 p-8 max-w-5xl mx-auto">
+  <!-- BEGIN: GlancePanel -->
+  <section class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm" data-purpose="glance-panel">
+    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Topic Tags &amp; Concepts</h3>
+    <div class="flex flex-wrap gap-2 items-start">
+      
+      <!-- Sliding Window Tag -->
+      <div class="group relative">
+        <button class="px-3 py-1 bg-indigo-50 text-indigo-700 border border-indigo-100 rounded-full text-xs font-semibold uppercase hover:bg-indigo-100 transition-colors cursor-pointer">
+          Sliding Window
+        </button>
+        <div class="hidden group-focus-within:block absolute left-0 mt-2 w-72 p-4 bg-white border border-indigo-200 rounded-lg shadow-xl z-20 text-sm">
+          <p class="font-bold text-indigo-900 mb-1">Sliding Window</p>
+          <p class="text-gray-600 mb-2">A technique used to track a subset of data in an array or string to reduce time complexity from O(N²) to O(N).</p>
+          <div class="bg-indigo-50 p-2 rounded text-[11px] font-mono text-indigo-800">
+            Formula: window_sum = window_sum - element_out + element_in
+          </div>
+        </div>
+      </div>
+
+      <!-- Deque Tag -->
+      <div class="group relative">
+        <button class="px-3 py-1 bg-sky-50 text-sky-700 border border-sky-100 rounded-full text-xs font-semibold uppercase hover:bg-sky-100 transition-colors cursor-pointer">
+          Deque
+        </button>
+        <div class="hidden group-focus-within:block absolute left-0 mt-2 w-72 p-4 bg-white border border-sky-200 rounded-lg shadow-xl z-20 text-sm">
+          <p class="font-bold text-sky-900 mb-1">Double-Ended Queue (Deque)</p>
+          <p class="text-gray-600 mb-2">A linear data structure where elements can be added or removed from either the front or the back.</p>
+          <p class="text-[11px] text-gray-500 font-medium uppercase tracking-tighter">Common Pattern: Monotonic Deque for Sliding Window Max/Min.</p>
+        </div>
+      </div>
+
+      <!-- Queue Operations Tag -->
+      <div class="group relative">
+        <button class="px-3 py-1 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-full text-xs font-semibold uppercase hover:bg-emerald-100 transition-colors cursor-pointer">
+          Queue Operations
+        </button>
+        <div class="hidden group-focus-within:block absolute left-0 mt-2 w-72 p-4 bg-white border border-emerald-200 rounded-lg shadow-xl z-20 text-sm">
+          <p class="font-bold text-emerald-900 mb-1">Queue (FIFO)</p>
+          <p class="text-gray-600 mb-2">First-In-First-Out operations. Core methods: Enqueue (push) and Dequeue (pop).</p>
+          <div class="bg-emerald-50 p-2 rounded text-[11px] font-mono text-emerald-800">
+            Complexity: O(1) for both push and pop.
+          </div>
+        </div>
+      </div>
+
+      <!-- Circular Queue Tag -->
+      <div class="group relative">
+        <button class="px-3 py-1 bg-purple-50 text-purple-700 border border-purple-100 rounded-full text-xs font-semibold uppercase hover:bg-purple-100 transition-colors cursor-pointer">
+          Circular Queue
+        </button>
+        <div class="hidden group-focus-within:block absolute left-0 mt-2 w-72 p-4 bg-white border border-purple-200 rounded-lg shadow-xl z-20 text-sm">
+          <p class="font-bold text-purple-900 mb-1">Circular Buffer</p>
+          <p class="text-gray-600 mb-2">A fixed-size queue that wraps around to the beginning, optimizing space in memory-constrained environments.</p>
+          <div class="bg-purple-50 p-2 rounded text-[11px] font-mono text-purple-800">
+            Index: i = (i + 1) % capacity
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END: GlancePanel -->
+
+  <!-- BEGIN: ProblemList -->
+  <section class="space-y-4" data-purpose="problem-list">
+    <!-- Problem Card 1 -->
+    <article class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden hover:border-indigo-300 transition-colors cursor-pointer" data-purpose="problem-card">
+      <div class="p-6 flex items-start justify-between">
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-xs font-bold px-2 py-0.5 bg-yellow-100 text-yellow-800 rounded">Medium</span>
+            <span class="text-xs font-bold px-2 py-0.5 bg-red-100 text-red-800 rounded flex items-center gap-1">
+              <mat-icon class="text-xs! h-4! w-4!">report_problem</mat-icon>
+              Must Revise
+            </span>
+          </div>
+          <h4 class="text-lg font-bold text-gray-900">First Negative Integer in Window</h4>
+          <p class="text-gray-600 mt-1 line-clamp-1">Find the first negative number in every window of size K in an array.</p>
+        </div>
+        <div class="ml-4">
+          <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </div>
+      </div>
+    </article>
+
+    <!-- Problem Card 2 (Expanded) -->
+    <article class="bg-white rounded-xl border-2 border-indigo-500 shadow-md overflow-hidden" data-purpose="problem-card-expanded">
+      <div class="p-6 flex items-start justify-between border-b border-gray-100 bg-indigo-50/30">
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-xs font-bold px-2 py-0.5 bg-green-100 text-green-800 rounded">Easy</span>
+          </div>
+          <h4 class="text-lg font-bold text-indigo-900">Implement Queue using Stacks</h4>
+          <p class="text-gray-600 mt-1">Implement a first-in-first-out (FIFO) queue using only two stacks.</p>
+        </div>
+        <div class="ml-4">
+          <mat-icon class="text-indigo-500 transform rotate-180">expand_more</mat-icon>
+        </div>
+      </div>
+      <div class="p-6 space-y-6">
+        <div>
+          <h5 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-2">
+            <mat-icon class="text-indigo-500">lightbulb</mat-icon>
+            Approach &amp; Logic
+          </h5>
+          <ul class="list-disc list-inside text-gray-600 text-sm space-y-1 ml-1">
+            <li>Use two stacks: <code class="bg-gray-100 px-1 rounded text-pink-600">input</code> and <code class="bg-gray-100 px-1 rounded text-pink-600">output</code>.</li>
+            <li>For <code class="font-semibold text-indigo-600">push</code>, simply add to the input stack.</li>
+            <li>For <code class="font-semibold text-indigo-600">pop/peek</code>, if output stack is empty, transfer all elements from input stack to output stack.</li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-sm font-bold text-gray-900 mb-2 flex items-center gap-2">
+            <mat-icon class="text-indigo-500">code</mat-icon>
+            Blueprint Code
+          </h5>
+          <div class="relative group">
+            <pre class="bg-slate-900 text-slate-100 p-4 rounded-lg text-xs leading-relaxed overflow-x-auto shadow-inner"><span class="text-blue-400">class</span> <span class="text-emerald-400">MyQueue</span> &#123;
+  <span class="text-blue-400">private</span> Stack&lt;Integer&gt; input = <span class="text-blue-400">new</span> Stack&lt;&gt;();
+  <span class="text-blue-400">private</span> Stack&lt;Integer&gt; output = <span class="text-blue-400">new</span> Stack&lt;&gt;();
+
+  <span class="text-blue-400">public void</span> <span class="text-yellow-300">push</span>(<span class="text-orange-300">int</span> x) &#123;
+      input.push(x);
+  &#125;
+
+  <span class="text-blue-400">public int</span> <span class="text-yellow-300">pop</span>() &#123;
+      peek();
+      <span class="text-blue-400">return</span> output.pop();
+  &#125;
+
+  <span class="text-blue-400">public int</span> <span class="text-yellow-300">peek</span>() &#123;
+      <span class="text-blue-400">if</span> (output.empty())
+          <span class="text-blue-400">while</span> (!input.empty())
+              output.push(input.pop());
+      <span class="text-blue-400">return</span> output.peek();
+  &#125;
+&#125;</pre>
+          </div>
+        </div>
+        <div class="flex items-center gap-8 pt-2 border-t border-gray-100">
+          <div>
+            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Time Complexity</span>
+            <span class="text-sm font-semibold text-gray-700">Amortized O(1)</span>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Space Complexity</span>
+            <span class="text-sm font-semibold text-gray-700">O(N)</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Problem Card 3 -->
+    <article class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden hover:border-indigo-300 transition-colors cursor-pointer" data-purpose="problem-card">
+      <div class="p-6 flex items-start justify-between">
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-xs font-bold px-2 py-0.5 bg-red-100 text-red-800 rounded">Hard</span>
+          </div>
+          <h4 class="text-lg font-bold text-gray-900">Sliding Window Maximum</h4>
+          <p class="text-gray-600 mt-1 line-clamp-1">Find the maximum element in every window of size K using a Deque.</p>
+        </div>
+        <div class="ml-4">
+          <mat-icon class="text-gray-400">expand_more</mat-icon>
+        </div>
+      </div>
+    </article>
+  </section>
+  <!-- END: ProblemList -->
+</div>

@@ -1,0 +1,181 @@
+<!-- New Submission Form -->
+<div class="mx-auto max-w-4xl px-6 py-8">
+
+  <!-- Breadcrumbs -->
+  <nav class="mb-6 flex items-center gap-2 text-sm text-slate-500" aria-label="Breadcrumb">
+    <a [routerLink]="['/module', route.snapshot.paramMap.get('mId'), 'day', route.snapshot.paramMap.get('dId')]"
+       class="hover:text-indigo-400 transition-colors">Day</a>
+    <span aria-hidden="true">›</span>
+    <span class="font-medium text-slate-200">New Submission</span>
+  </nav>
+
+  <header class="mb-8 flex items-center gap-3">
+    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600/20 text-indigo-400">
+      <mat-icon>add</mat-icon>
+    </div>
+    <h1 class="text-2xl font-bold text-white">Add New Problem</h1>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div class="space-y-6">
+
+      <!-- ── Card ── -->
+      <section class="form-card">
+        <h2 class="section-title">Basic Info</h2>
+
+        <!-- Title -->
+        <div>
+          <label for="title" class="field-label">Problem Title</label>
+          <input
+            id="title"
+            formControlName="title"
+            type="text"
+            placeholder="e.g. Longest Palindromic Substring"
+            class="field-input"
+            aria-required="true"/>
+          @if (form.get('title')?.invalid && form.get('title')?.touched) {
+            <p class="mt-1 text-xs text-red-400" role="alert">Title must be at least 3 characters.</p>
+          }
+        </div>
+
+        <!-- Difficulty (segmented control) -->
+        <div>
+          <fieldset>
+            <legend class="field-label">Difficulty</legend>
+            <div class="mt-2 flex gap-3">
+              @for (level of difficulties; track level) {
+                <label class="flex-1 cursor-pointer" [for]="'diff-' + level">
+                  <input
+                    [id]="'diff-' + level"
+                    type="radio"
+                    [value]="level"
+                    formControlName="difficulty"
+                    class="peer sr-only"/>
+                  <div class="difficulty-pill"
+                       [class.easy-active]="form.get('difficulty')?.value === 'Easy' && level === 'Easy'"
+                       [class.medium-active]="form.get('difficulty')?.value === 'Medium' && level === 'Medium'"
+                       [class.hard-active]="form.get('difficulty')?.value === 'Hard' && level === 'Hard'">
+                    {{ level }}
+                  </div>
+                </label>
+              }
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Tags (chip input) -->
+        <div>
+          <label class="field-label" id="tags-label">Tags</label>
+          <div class="chip-container" role="group" aria-labelledby="tags-label">
+            @for (tag of tags(); track tag) {
+              <span class="chip">
+                {{ tag }}
+                <button type="button" class="chip-remove" [attr.aria-label]="'Remove tag ' + tag" (click)="removeTag(tag)">
+                  <mat-icon class="text-xs! h-4! w-4!">close</mat-icon>
+                </button>
+              </span>
+            }
+            <input
+              type="text"
+              placeholder="Type a tag and press Enter…"
+              class="chip-input"
+              aria-label="Add a tag"
+              (keydown.enter)="addTag({ value: $any($event.target).value, chipInput: $any($event.target) }); $event.preventDefault()"
+              (keydown.comma)="addTag({ value: $any($event.target).value, chipInput: $any($event.target) }); $event.preventDefault()"/>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Description ── -->
+      <section class="form-card">
+        <h2 class="section-title">Description</h2>
+        <label for="description" class="field-label">Problem Statement</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          rows="5"
+          placeholder="Paste the problem statement here…"
+          class="field-input resize-none"></textarea>
+      </section>
+
+      <!-- ── Approach / Logic (FormArray) ── -->
+      <section class="form-card">
+        <h2 class="section-title">Approach &amp; Logic</h2>
+        <div class="space-y-3" formArrayName="approachList">
+          @for (ctrl of approachControls; track $index) {
+            <div class="flex items-center gap-3">
+              <mat-icon class="shrink-0 text-indigo-400">chevron_right</mat-icon>
+              <input
+                [formControlName]="$index"
+                type="text"
+                placeholder="Describe a step in your approach…"
+                class="approach-input flex-1"
+                [attr.aria-label]="'Approach step ' + ($index + 1)"/>
+              @if (approachControls.length > 1) {
+                <button
+                  type="button"
+                  class="remove-bullet"
+                  [attr.aria-label]="'Remove step ' + ($index + 1)"
+                  (click)="removeApproachBullet($index)">
+                  <mat-icon class="text-base!">close</mat-icon>
+                </button>
+              }
+            </div>
+          }
+          <button type="button" class="add-bullet-btn" (click)="addApproachBullet()">
+            <mat-icon class="text-slate-400">add</mat-icon>
+            Add another bullet point
+          </button>
+        </div>
+      </section>
+
+      <!-- ── Blueprint Code ── -->
+      <section class="form-card p-0! overflow-hidden">
+        <div class="flex items-center justify-between p-5 pb-3">
+          <h2 class="section-title mb-0">Blueprint Code</h2>
+          <select formControlName="language" class="lang-select" aria-label="Programming language">
+            @for (lang of languages; track lang) {
+              <option [value]="lang">{{ lang }}</option>
+            }
+          </select>
+        </div>
+        <!-- Editor chrome -->
+        <div class="border-t border-white/5">
+          <div class="flex items-center gap-1.5 bg-[#2d2d2d] px-3 py-2 border-b border-white/5">
+            <span class="h-2.5 w-2.5 rounded-full bg-red-500/80"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-amber-500/80"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-emerald-500/80"></span>
+            <span class="text-[10px] text-white/40 font-mono ml-2 uppercase tracking-widest">solution.{{ form.get('language')?.value?.toLowerCase()?.replace('javascript','js')?.replace('typescript','ts')?.replace('python','py')?.replace('c++','cpp')?.replace('java','java') }}</span>
+          </div>
+          <textarea
+            formControlName="codeSnippet"
+            rows="10"
+            spellcheck="false"
+            placeholder="// Paste your blueprint code here…"
+            class="code-editor"
+            aria-label="Blueprint code"></textarea>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Action Footer -->
+    <div class="mt-6 flex items-center justify-end gap-4 rounded-xl border border-slate-700/60 bg-slate-800/40 px-6 py-4">
+      <a [routerLink]="['/module', route.snapshot.paramMap.get('mId'), 'day', route.snapshot.paramMap.get('dId')]"
+         class="cancel-btn" role="button">Cancel</a>
+      <button
+        type="submit"
+        class="submit-btn"
+        [disabled]="form.invalid || isSubmitting()"
+        [attr.aria-busy]="isSubmitting()">
+        @if (isSubmitting()) {
+          <mat-icon class="animate-spin text-lg">progress_activity</mat-icon>
+          Saving…
+        } @else {
+          <mat-icon>check</mat-icon>
+          Save Problem
+        }
+      </button>
+    </div>
+  </form>
+</div>
